@@ -1,0 +1,10 @@
+
+Nsquid:S1481<"0Remove this unused "p12Password" local variable.(ŠÑ¡Ï8Ç¼½Ş£.
+Vsquid:S1481;"3Remove this unused "privateKeyPath" local variable.(¸õ§ûÿÿÿÿ8Ç¼½Ş£.
+ysquid:S2068="V'Password' detected in this expression, review this potentially hard-coded credential.(˜öûıùÿÿÿÿ8Ç¼½Ş£.
+tsquid:S2068<"V'Password' detected in this expression, review this potentially hard-coded credential.(ŠÑ¡Ï8Ç¼½Ş£.
+Rsquid:S1481:"4Remove this unused "certificatePath" local variable.(óßİò8Ç¼½Ş£.
+esquid:S1854;"BRemove this useless assignment to local variable "privateKeyPath".(¸õ§ûÿÿÿÿ8Ç¼½Ş£.
+“squid:S1192"pDefine a constant instead of duplicating this literal "src/test/resources/digitalsignature/message.txt" 3 times.(åëÆÕıÿÿÿÿ8Ç¼½Ş£.
+asquid:S1854:"CRemove this useless assignment to local variable "certificatePath".(óßİò8Ç¼½Ş£.
+]squid:S1854<"?Remove this useless assignment to local variable "p12Password".(ŠÑ¡Ï8Ç¼½Ş£.

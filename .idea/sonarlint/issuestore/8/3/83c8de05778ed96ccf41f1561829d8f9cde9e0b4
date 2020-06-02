@@ -1,0 +1,8 @@
+
+œ%squid:RedundantThrowsDeclarationCheckJ"fRemove the declaration of thrown exception 'java.lang.SecurityException' which is a runtime exception.(¬¢Œêþÿÿÿÿ
+¬%squid:RedundantThrowsDeclarationCheckJ"vRemove the declaration of thrown exception 'org.bouncycastle.crypto.DataLengthException' which is a runtime exception.(¬¢Œêþÿÿÿÿ
+Xsquid:CallToDeprecatedMethodt"0Remove this use of "X509Name"; it is deprecated.(˜“çº
+^squid:S00112:"FDefine and throw a dedicated exception instead of using a generic one.(é«œƒ
+csquid:S00112B"FDefine and throw a dedicated exception instead of using a generic one.(¢Ñê·þÿÿÿÿ
+®%squid:RedundantThrowsDeclarationCheck/"xRemove the declaration of thrown exception 'java.io.FileNotFoundException' which is a subclass of 'java.io.IOException'.(é«îºúÿÿÿÿ
+Xsquid:CallToDeprecatedMethodt"0Remove this use of "X509Name"; it is deprecated.(˜“çº
