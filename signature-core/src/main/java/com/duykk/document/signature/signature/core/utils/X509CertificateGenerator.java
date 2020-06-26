@@ -1,5 +1,10 @@
 package com.duykk.document.signature.signature.core.utils;
 
+import com.duykk.document.signature.signature.core.SignatureCore;
+import com.duykk.document.signature.signature.core.config.SignatureCoreConfig;
+import com.duykk.document.signature.signature.core.model.CertificateEntity;
+import com.duykk.document.signature.signature.core.repository.CertificateRepository;
+import com.duykk.document.signature.signature.core.service.CertificateService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.asn1.*;
@@ -20,6 +25,8 @@ import org.bouncycastle.jce.PrincipalUtil;
 import org.bouncycastle.jce.interfaces.PKCS12BagAttributeCarrier;
 import org.bouncycastle.jce.provider.X509CertificateObject;
 import org.bouncycastle.x509.extension.SubjectKeyIdentifierStructure;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -36,6 +43,9 @@ import java.util.Date;
 @Slf4j
 public class X509CertificateGenerator {
 
+  @Autowired
+  CertificateRepository certificateRepository;
+
   /** This holds the certificate of the CA used to sign the new certificate. The object is created in the constructor. */
   private X509Certificate caCert;
   /** This holds the private key of the CA used to sign the new certificate. The object is created in the constructor. */
@@ -43,14 +53,15 @@ public class X509CertificateGenerator {
 
   private boolean useBCAPI;
 
-  public X509CertificateGenerator(String caFile, String caPassword, String caAlias, boolean useBCAPI)
+  public X509CertificateGenerator(String caFile, byte[] caData, String caPassword, String caAlias, boolean useBCAPI)
           throws KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException, UnrecoverableKeyException, InvalidKeyException, NoSuchProviderException, SignatureException {
     this.useBCAPI = useBCAPI;
 
     log.info("Loading CA certificate and private key from file '" + caFile + "', using alias '" + caAlias + "' with "
             + (this.useBCAPI ? "Bouncycastle lightweight API" : "JCE API"));
-    KeyStore caKs = KeyStore.getInstance("PKCS12");
-    caKs.load(new FileInputStream(new File(caFile)), caPassword.toCharArray());
+    KeyStore caKs = SignatureCoreConfig.keyStore;
+    InputStream caDataInputStream = new ByteArrayInputStream(caData);
+    caKs.load(caDataInputStream, caPassword.toCharArray());
 
     // load the key entry from the keystore
     Key key = caKs.getKey(caAlias, caPassword.toCharArray());
@@ -187,7 +198,7 @@ public class X509CertificateGenerator {
             PKCSObjectIdentifiers.pkcs_9_at_localKeyId,
             new SubjectKeyIdentifierStructure(pubKey));
 
-    KeyStore store = KeyStore.getInstance("PKCS12");
+    KeyStore store = SignatureCoreConfig.keyStore;
 
     store.load(null, null);
 
@@ -196,12 +207,12 @@ public class X509CertificateGenerator {
     chain[0] = clientCert;
     chain[1] = caCert;
 
-    store.setKeyEntry("Private key for IPSec WLAN access", privKey, exportPassword.toCharArray(), chain);
+    store.setKeyEntry(dn, privKey, exportPassword.toCharArray(), chain);
 
     FileOutputStream fOut = new FileOutputStream(exportFile);
 
     store.store(fOut, exportPassword.toCharArray());
-    log.info(store.toString());
+
     return true;
   }
 }

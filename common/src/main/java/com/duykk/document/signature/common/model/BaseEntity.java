@@ -1,13 +1,13 @@
 package com.duykk.document.signature.common.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -15,6 +15,7 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseEntity {
   @Id
+  @Column(name = "id")
   private String id;
 
   @Column(name = "name")
@@ -39,14 +40,6 @@ public class BaseEntity {
   @PrePersist
   private void ensureId() {
     this.setId(UUID.randomUUID().toString());
-  }
-
-  public String getId() {
-    if (id == null) {
-      id = UUID.randomUUID().toString();
-    }
-
-    return id;
   }
 }
 

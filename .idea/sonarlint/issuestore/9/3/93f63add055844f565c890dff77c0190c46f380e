@@ -1,0 +1,5 @@
+
+Ž"squid:ClassVariableVisibilityCheck"TMake keyStore a static final constant or non-public and provide accessors if needed.(ï–âÝûÿÿÿÿ8•³‰°«.
+Qsquid:S1444".Make this "public static keyStore" field final(ï–âÝûÿÿÿÿ8•³‰°«.
+Fsquid:S1148!"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8²Ùú¼«.
+Tsquid:S2696"6Make the enclosing method "static" or remove this set.(ßâ²°8²Ùú¼«.

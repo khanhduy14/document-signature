@@ -1,6 +1,6 @@
 
 Fsquid:S00108{")Either remove or fill this block of code.(Ýö®ðþÿÿÿÿ
+Vsquid:S1118":Add a private constructor to hide the implicit public one.(‘Ê¥ƒûÿÿÿÿ
 Nsquid:S2589w"7Remove this expression which always evaluates to "true"(¢‚á¯
 ^squid:S1854z"BRemove this useless assignment to local variable "implementation".(ª•¹Ëùÿÿÿÿ
 [squid:CallToDeprecatedMethodj"3Remove this use of "newInstance"; it is deprecated.(†à€ä
-Vsquid:S1118":Add a private constructor to hide the implicit public one.(‘Ê¥ƒûÿÿÿÿ

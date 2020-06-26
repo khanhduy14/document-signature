@@ -7,4 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CertificateRepository extends JpaRepository<CertificateEntity, String> {
+  CertificateEntity findFirstByAliasName(String aliasName);
+
+  CertificateEntity findFirstByFileName(String fileName);
+
+  CertificateEntity getByFileName(String fileName);
 }

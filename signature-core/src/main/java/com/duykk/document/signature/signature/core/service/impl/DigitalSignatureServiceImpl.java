@@ -19,37 +19,32 @@ import java.util.Arrays;
 @Slf4j
 public class DigitalSignatureServiceImpl implements DigitalSignatureService {
 
-  public void digitalSignatureSigning() throws Exception {
-    PrivateKey privateKey = Utils.getPrivateKey();
+
+  public byte[] digitalSignatureSigning(byte[] data, String caAliasName, String caPassword, byte[] caData) throws Exception {
+    PrivateKey privateKey = Utils.getPrivateKey(caData, caAliasName, caPassword);
 
     Signature signature = Signature.getInstance(Utils.SIGNING_ALGORITHM);
     signature.initSign(privateKey);
 
-    byte[] messageBytes =
-        Files.readAllBytes(Paths.get("src/test/resources/digitalsignature/message.txt"));
-
-    signature.update(messageBytes);
+    signature.update(data);
     byte[] digitalSignature = signature.sign();
-    Files.write(Paths.get("target/digital_signature_2"), digitalSignature);
     log.info("Signing Done >>>>>>>");
-    log.info(new String(digitalSignature));
+    return digitalSignature;
   }
 
   @Override
-  public void digitalSignatureVerify() throws Exception {
-    PublicKey publicKey = Utils.getPublicKey();
+  public boolean digitalSignatureVerify(byte[] data, byte[] rawData, String caAliasName, String caPassword, byte[] caData) throws Exception {
+    PublicKey publicKey = Utils.getPublicKey(caData, caAliasName, caPassword);
 
-    byte[] sig = Files.readAllBytes(Paths.get("target/digital_signature_2"));
 
     Signature signature = Signature.getInstance(Utils.SIGNING_ALGORITHM);
     signature.initVerify(publicKey);
 
-    byte[] messageBytes = Files.readAllBytes(Paths.get("src/test/resources/digitalsignature/message.txt"));
-    log.info(String.valueOf(messageBytes));
-    signature.update(messageBytes);
+    signature.update(rawData);
 
-    boolean isCorrect = signature.verify(sig);
+    boolean isCorrect = signature.verify(data);
     log.info("Signature " + (isCorrect ? "correct" : "incorrect"));
+    return isCorrect;
   }
 
   @Override
